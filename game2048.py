@@ -10,14 +10,12 @@ def timeit(func):
     """
     Обертка для дебага, посмотреть время выполнения функции.
     """
-
     def wrap(*args, **kwargs):
         start = time_ns()
         result = func(*args, **kwargs)
         finish = time_ns()
         print(f"{func.__name__} completes in {(finish - start) / 1000000}ms")
         return result
-
     return wrap
 
 
@@ -56,7 +54,7 @@ class Block:
 
 class Board:
     """
-    Доска
+    Игровая доска
     """
     def __init__(self, size: int) -> None:
         self.current_score = 0
@@ -70,6 +68,9 @@ class Board:
         return "\n".join(map(str, self.board))
 
     def __copy_board(self):
+        """
+        Возвращяет копию доски.
+        """
         return [line.copy() for line in self.board]
 
     def no_more_moves(self) -> bool:
@@ -221,6 +222,11 @@ class Board:
 
 
 class Game2048(Tk):
+    """
+    Игра 2048.
+    """
+    version = "0.1"
+
     def __init__(self, size=4):
         super().__init__()
         self.size = size
@@ -236,7 +242,7 @@ class Game2048(Tk):
         self.bind('<Right>', self.right_key)
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
-        for i in range(self.size + 1):
+        for i in range(self.size):
             self.columnconfigure(index=i, weight=1)
             self.rowconfigure(index=i, weight=1)
 
