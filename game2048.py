@@ -8,7 +8,8 @@ from time import time_ns
 
 def timeit(func):
     """
-    Обертка для дебага, посмотреть время выполнения функции.
+    Обертка для дебага, печатает имя функции или метода и время выполнения.
+    К игре не имеет отношения.
     """
     def wrap(*args, **kwargs):
         start = time_ns()
@@ -244,6 +245,7 @@ class Game2048(Tk):
 
         for i in range(self.size):
             self.columnconfigure(index=i, weight=1)
+        for i in range(self.size + 2):
             self.rowconfigure(index=i, weight=1)
 
         self.best_score = None
@@ -288,7 +290,7 @@ class Game2048(Tk):
 
     def get_best_score(self):
         """
-        Считывает из файла `data` лучший ризультат и имя игрока.
+        Считывает из файла `data` лучший результат и имя игрока.
         """
         try:
             with open("data", "r") as file:
